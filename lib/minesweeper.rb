@@ -1,5 +1,13 @@
 require 'terminal-table/import'
 
+=begin
+Bomb Totals
+Beginner = 10
+intermediate = 40
+Expert = 99
+=end
+
+
 class Minesweeper
 
   def get_size
@@ -31,15 +39,16 @@ class Minesweeper
 
     # Emoji Initialize
     bnk = "\u{2B1C}"
+    flg = "\u{1F6A9}"
 
-
+    # For each number of lines...
     num1.times do |i|
 
       # Make our line
       line = []
       num2.times do line.push([bnk]) end
 
-
+      # Push the line
       array.push(line)
 
       # Add our seperators
@@ -48,7 +57,7 @@ class Minesweeper
       end
     end
 
-    # Return Array
+    # RETURN Array
     array
 
   end
@@ -57,8 +66,6 @@ class Minesweeper
     # Makes our blank 2D array
     @Player_Array = []
 
-    # Emoji Initialize
-    bnk = "\u{2B1C}"
 
     #Makes based on size
     if size == "beginner"
