@@ -8,29 +8,36 @@ Expert = 99
 =end
 
 
-class Minesweeper
+class Game
 
-  def get_size
-    # Make a blank table for us
-    puts "What size do you want?"
-    puts "beginner, intermediate, and expert. (b, i, e)"
-    answer = gets.chomp
+  def initialize
+    display_board = Board.new
+    display_board.set_board(display_board.get_size)
 
-    # Switch statement for our size
-    if answer == "b"
-      size = "beginner"
-    elsif answer == "i"
-      size = "intermediate"
-    elsif answer == "e"
-      size = "expert"
+    mine_board = Mine_Board.new
+    mine_board.set_board(mine_board.get_size('b'))
+  end
+
+end
+
+class Board
+
+  def get_size(answer = nil)
+
+    # Get User Input for Board Size - NEED TO EXTRACT - NEED TO SIZE INSTANCE VARIABLE
+    if answer.nil?
+      puts "What size do you want?"
+      puts "beginner, intermediate, and expert. (b, i, e)"
     end
+
+    (answer.nil?) ? size = gets.chomp : size = answer
 
     # Puts it out
     return size
   end
 
   # Keeps our Set_Board DRY
-  def make_board(num1, num2)
+  def board_maker(num1, num2)
 
     # [num1] x [num2]
 
@@ -64,27 +71,27 @@ class Minesweeper
 
   def set_board(size)
     # Makes our blank 2D array
-    @Player_Array = []
-
+    array = []
 
     #Makes based on size
-    if size == "beginner"
-      @Player_Array = make_board(9, 9)
-    elsif size == "intermediate"
-      @Player_Array = make_board(13, 15)
-    elsif size == "expert"
-      @Player_Array = make_board(16, 30)
+    if size == "b"
+      array = board_maker(9, 9)
+    elsif size == "i"
+      array = board_maker(13, 15)
+    elsif size == "e"
+      array = board_maker(16, 30)
     end
 
-
     # Make our board variable
-    @player_board = Terminal::Table.new :rows => @Player_Array
+    board = Terminal::Table.new :rows => array
 
-    # Puts
-    #system 'clear'
-    puts @player_board
+    # Puts The Board
+    puts board
+
   end
 end
 
-yours = Minesweeper.new
-yours.set_board(yours.get_size)
+class Mine_Board < Board
+end
+
+Game.new
